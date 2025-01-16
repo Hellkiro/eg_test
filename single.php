@@ -11,22 +11,41 @@
     
     $id = $_GET['id'];
 
-    $table = mysqli_query($link, 
-        "SELECT products.`name`, prices.price
-        FROM products
-        JOIN prices ON products.id = prices.id_product
-        WHERE products.id = ".$id);
-    if ($table) {
-        $row = mysqli_fetch_assoc($table);
-    } else {
-        echo 'DB error';
+    function getProduct($id) {
+        global $link;
+        $table = mysqli_query($link, 
+            "SELECT products.`name`, products.`id_group`, prices.price
+            FROM products
+            JOIN prices ON products.id = prices.id_product
+            WHERE products.id = ".$id);
+        if ($table) {
+            $row = mysqli_fetch_assoc($table);
+        } else {
+            echo 'DB error';
+        }
+        return $row;
     }
 
 ?>
 
 <main>
-    <h1><?php echo $row['name'] ?></h1>
-    <h2><?php echo $row['price'] ?></h2>
+    <div class="breadcrumbs">
+    <?php
+        //Получаем подготовленный массив с данными
+        $cat  = getCat(); 
+    
+        //Получаем массив с крошками
+        $arr_brc = breadcrumb($cat, getProduct($id)['id_group']);
+
+        //Получаем строку с крошками
+        $brc = getBrc($arr_brc);
+
+        //Выводим хлебные крошки
+        echo $brc;
+    ?>
+    </div>
+    <h1><?php echo getProduct($id)['name'] ?></h1>
+    <h2><?php echo getProduct($id)['price'] ?></h2>
 </main>
 
 <?php require 'footer.php' ?>

@@ -1,44 +1,22 @@
 <?php require 'header.php'; ?>
 <?php include ('server/connect.php'); ?>
 
-<?php
-
-$category_id = 0;
-
-function getGroups($parent) {
-    global $link;
-    $table_groups = mysqli_query($link, "SELECT id, id_parent, name FROM docker.groups WHERE id_parent = ".$parent);
-    if ($table_groups) {
-        $groups = array();
-        if (mysqli_num_rows($table_groups)) {
-            while ($row = mysqli_fetch_assoc($table_groups)) {
-                array_push($groups, array($row['id'], $row['id_parent'], $row['name']));
-            }
-        }
-    }
-    return $groups;
-}
-
-function renderCategories($category_id) {
-    
-    $categories = getGroups($category_id);
-    
-    echo '<div class="level">';
-    foreach ($categories as $category) {
-        echo '<div class="item"><a href="">'.$category[2].'</a></div>';
-    }
-    echo '</div>';
-
-}
-
-?>
-
 <main>
 
     <div class="sidebar">
         <div class="category-nav">
             <?php
-                renderCategories($category_id);
+                //Получаем подготовленный массив с данными
+                $cat  = getCat(); 
+                
+                //Создаем древовидное меню
+                $tree = getTree($cat);
+                
+                //Получаем HTML разметку
+                $cat_menu = showCat($tree);
+                
+                //Выводим на экран меню
+                echo '<ul>'. $cat_menu .'</ul>';
             ?>
         </div>
     </div>

@@ -1,5 +1,21 @@
 const apiUrl = 'http://localhost/server/api.php';
 
+const params = window
+    .location
+    .search
+    .replace('?','')
+    .split('&')
+    .reduce(
+        function(p,e){
+            var a = e.split('=');
+            p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+            return p;
+        },
+        {}
+    );
+
+console.log(params['category']);
+
 function objToFormdata(obj) {
     let formData = new FormData();
     for ( let key in obj ) {formData.append(key, obj[key]);}
@@ -111,9 +127,18 @@ class Pagination {
     }
 }
 
+class Menu {
+    constructor() {
+        this.container = document.querySelector('.category-nav');
+    }
+}
+
 
 const catalog = new Catalog();
 const pagination = new Pagination();
+const menu = new Menu();
+
+catalog.req.category = params['category'] ? params['category'] : 0;
 catalog.render();
 
 

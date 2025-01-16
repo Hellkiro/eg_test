@@ -88,9 +88,16 @@ main{
 
 //BREADCRUMBS
 .breadcrumbs{
-  display: none;
+  display: block;
   margin-bottom: 30px;
   width: 100%;
+  a{
+    text-decoration: underline;
+    color: @color-red;
+  }
+  a:hover{
+    text-decoration: none;
+  }
 }
 
 //SIDEBAR
@@ -103,9 +110,9 @@ main{
 }
 .category-nav{
   padding-right: 15px;
-  .level{
+  ul{
     padding-left: 25px;
-    .item{
+    li{
       a{
         display: block;
         width: 100%;
