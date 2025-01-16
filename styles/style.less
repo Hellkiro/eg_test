@@ -253,3 +253,46 @@ footer{
   align-items: center;
   border-top: 1px solid rgba(255,255,255,0.2);
 }
+
+@media (max-width: 500px) {
+  body{
+    padding: 6px;
+  }
+  header{
+    width: 100%;
+    margin: 10px auto;
+  }
+  .sidebar{
+    width: 100%;
+    min-height: auto;
+  }
+  .catalog{
+    margin-top: 15px;
+    width: 100%;
+    padding-left: 0px;
+    .catalog__top{
+      flex-wrap: wrap;
+      .sort{
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        p:first-child{
+          width: 100%;
+        }
+        p{
+          margin-right: 0px;
+          width: 50%;
+        }
+      }
+      .list-count{
+        width: 100%;
+      }
+    }
+    .catalog__products{
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 300px;
+      gap: 5px;
+    }
+  }
+}
