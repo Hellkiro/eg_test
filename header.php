@@ -40,8 +40,8 @@
 
     //Шаблон для вывода меню в виде дерева
     function tplMenu($category){
-        $menu = '<li>
-            <a href="?id='. $category['id'] .'" title="'. $category['name'] .'">'.
+        $menu = '<li cat="'.$category['id'].'">
+            <a href="?category='. $category['id'] .'" title="'. $category['name'] .'">'.
             $category['name'].'</a>';
             
             if(isset($category['childs'])){
@@ -135,5 +135,5 @@
 <div class="page">
 
 <header>
-    
+    <div class="logo"><a href="/">LOGO</a></div>
 </header>

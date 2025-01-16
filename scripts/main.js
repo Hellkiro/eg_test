@@ -14,7 +14,7 @@ const params = window
         {}
     );
 
-console.log(params['category']);
+
 
 function objToFormdata(obj) {
     let formData = new FormData();
@@ -131,19 +131,34 @@ class Menu {
     constructor() {
         this.container = document.querySelector('.category-nav');
     }
+    openLevels(category) {
+        if (category != 0) {
+            
+            let node = this.container.querySelector('li[cat="'+category+'"]');
+            node.querySelector('a').classList.add('active');
+            
+            let childLevel = node.querySelector('ul');
+            if (childLevel) childLevel.classList.add('active');
+            
+            this.recursiveOpen(node);    
+        }
+    }
+    recursiveOpen(node) {
+        let currentLevel = node.closest('ul');
+        currentLevel.classList.add('active');
+        let currentLevelNode = currentLevel.closest('li');
+        if (currentLevelNode) this.recursiveOpen(currentLevelNode);
+    }
 }
 
 
+
+
+const category = params['category'] ? params['category'] : 0;
 const catalog = new Catalog();
 const pagination = new Pagination();
 const menu = new Menu();
 
-catalog.req.category = params['category'] ? params['category'] : 0;
+catalog.req.category = category;
 catalog.render();
-
-
-
-
-export {
-    
-}
+menu.openLevels(category);

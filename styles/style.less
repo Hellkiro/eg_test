@@ -123,6 +123,15 @@ main{
       color: #fff;
     }
   }
+  ul ul{
+    display: none;
+  }
+  ul.active{
+    display: block;
+  }
+  a.active{
+    color: @color-red;
+  }
 }
 
 //CATALOG
@@ -224,6 +233,15 @@ header{
   height: 50px;
   background: rgba(255,255,255,0.05);
   border-radius: 8px;
+  .logo{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 25px;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 300;
+  }
 }
 
 //FOOTER
